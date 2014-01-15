@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title></title>
+</head>
+<body ng-app ng-init="game.turn='X'; game.eval={}; game.winner=null; squares=[[{val:''},{val:''},{val:''}],[{val:''},{val:''},{val:''}],[{val:''},{val:''},{val:''}]]">
+<div ng-show="!game.winner">
+    Turn: {{game.turn}}
+</div>
+<span ng-show="game.eval.row1 = (squares[0][0].val != '') && (squares[0][0].val == squares[0][1].val) && (squares[0][0].val == squares[0][2].val);"></span>
+<span ng-show="game.eval.row2 = (squares[1][0].val != '') && (squares[1][0].val == squares[1][1].val) && (squares[1][0].val == squares[1][2].val);"></span>
+<span ng-show="game.eval.row3 = (squares[2][0].val != '') && (squares[2][0].val == squares[2][1].val) && (squares[2][0].val == squares[2][2].val);"></span>
+<span ng-show="game.eval.col1 = (squares[0][0].val != '') && (squares[0][0].val == squares[1][0].val) && (squares[0][0].val == squares[2][0].val);"></span>
+<span ng-show="game.eval.col2 = (squares[0][1].val != '') && (squares[0][1].val == squares[1][1].val) && (squares[0][1].val == squares[2][1].val);"></span>
+<span ng-show="game.eval.col3 = (squares[0][2].val != '') && (squares[0][2].val == squares[1][2].val) && (squares[0][2].val == squares[2][2].val);"></span>
+<span ng-show="game.eval.diag1 = (squares[0][0].val != '') && (squares[0][0].val == squares[1][1].val) && (squares[0][0].val == squares[2][2].val);"></span>
+<span ng-show="game.eval.diag2 = (squares[0][2].val != '') && (squares[0][2].val == squares[1][1].val) && (squares[0][2].val == squares[2][0].val);"></span>
+<div ng-show=" game.winner = game.eval.row1 ? squares[0][0].val : game.eval.row2 ? squares[1][0].val : game.eval.row3 ? squares[2][0].val : game.eval.col1 ? squares[0][0].val : game.eval.col2 ? squares[0][1].val : game.eval.col3 ? squares[0][2].val : game.eval.diag1 ? squares[0][0].val : game.eval.diag2 ? squares[2][0].val : null; game.winner">
+    Winner: {{game.winner}}
+</div>
+
+<table border="2 solid black">
+    <tr ng-repeat="row in squares">
+        <td ng-repeat="square in row" width="20" height="20" ng-click="allow=square.val==''?true:false; square.val=allow?game.turn:square.val; game.turn=allow?(game.turn == 'X' ? 'O' : 'X'):game.turn">{{square.val}}</td>
+    </tr>
+</table>
+
+<button ng-click="game.turn='X'; game.eval={}; game.winner=null; squares=[[{val:''},{val:''},{val:''}],[{val:''},{val:''},{val:''}],[{val:''},{val:''},{val:''}]]">Reset</button>
+
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.8/angular.min.js"></script>
+</body>
+</html>
